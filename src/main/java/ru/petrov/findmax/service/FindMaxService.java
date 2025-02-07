@@ -21,13 +21,22 @@ public class FindMaxService {
         File file = new File(path);
         FileValidator.validateFile(file);
         List<Long> allNumberFromFile = getAllNumberFromFile(file);
-        return MergeSort.mergeSort(allNumberFromFile).get(n);
+
+        FileValidator.validatePositionFile(allNumberFromFile.size(), n);
+        // Замер времени для оценки производительности
+//        long startTime1 = System.currentTimeMillis();
+        List<Long> allNumberFromFileSorted = MergeSort.mergeSortDesc(allNumberFromFile);
+//        long endTime1 = System.currentTimeMillis();
+//        long timeElapsed1 = endTime1 - startTime1;
+//        System.out.println("время на сортировку: " + timeElapsed1);
+        return allNumberFromFileSorted.get(n);
     }
 
     private List<Long> getAllNumberFromFile(File file) {
         int columnIndex = 0;
         List<Long> columnData = new ArrayList<>();
         IOUtils.setByteArrayMaxOverride(1000000000);
+//        long startTime = System.currentTimeMillis();
         try (InputStream is = Files.newInputStream(file.toPath())) {
             Workbook workbook = new XSSFWorkbook(is);
 
@@ -43,6 +52,11 @@ public class FindMaxService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+//        long endTime = System.currentTimeMillis();
+//        long timeElapsed = endTime - startTime;
+//        System.out.println("column size: " + columnData.size());
+//        System.out.println("время на считывание файла: " + timeElapsed);
+
         return columnData;
     }
 }

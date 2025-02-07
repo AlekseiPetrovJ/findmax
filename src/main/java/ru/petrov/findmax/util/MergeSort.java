@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MergeSort {
-    public static List<Long> mergeSort(List<Long> list) {
+    public static List<Long> mergeSortDesc(List<Long> list) {
         // Базовый случай: если список содержит 0 или 1 элемент, он уже отсортирован
         if (list.size() <= 1) {
             return list;
@@ -12,8 +12,8 @@ public class MergeSort {
 
         // Разделяем список на две части
         int middle = list.size() / 2;
-        List<Long> left = mergeSort(list.subList(0, middle));
-        List<Long> right = mergeSort(list.subList(middle, list.size()));
+        List<Long> left = mergeSortDesc(list.subList(0, middle));
+        List<Long> right = mergeSortDesc(list.subList(middle, list.size()));
 
         // Объединяем отсортированные части
         return merge(left, right);
@@ -23,9 +23,9 @@ public class MergeSort {
         List<Long> merged = new ArrayList<>();
         int i = 0, j = 0;
 
-        // Сравниваем элементы двух списков и добавляем меньший в merged
+        // Сравниваем элементы двух списков и добавляем больший в merged
         while (i < left.size() && j < right.size()) {
-            if (left.get(i) <= right.get(j)) {
+            if (left.get(i) >= right.get(j)) {
                 merged.add(left.get(i));
                 i++;
             } else {

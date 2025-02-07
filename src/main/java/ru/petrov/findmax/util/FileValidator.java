@@ -5,7 +5,13 @@ import ru.petrov.findmax.model.FileNotValid;
 import java.io.File;
 
 public class FileValidator {
-    public static void validateFile(File file){
+
+    /**
+     * Метод для проверки файла
+     *
+     * @param file
+     */
+    public static void validateFile(File file) {
 
         if (!file.exists()) {
             throw new FileNotValid("Такой файл не существует.");
@@ -16,7 +22,13 @@ public class FileValidator {
         if (!getFileExtension(file.getName()).equals("xlsx")) {
             throw new FileNotValid("Расширение должно быть xlsx.");
         }
+    }
 
+
+    public static void validatePositionFile(int size, int n) {
+        if (size-1 < n){
+            throw new FileNotValid("В файле меньше строк чем запрошенная позиция");
+        }
     }
 
     private static String getFileExtension(String filename) {
@@ -29,5 +41,4 @@ public class FileValidator {
         }
         return "";
     }
-
 }
